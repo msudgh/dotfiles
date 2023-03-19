@@ -70,19 +70,21 @@ ZSH_THEME=""
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  zsh-autosuggestions
-)
+plugins=(git poetry)
+
+# Shell Completion
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 source $ZSH/oh-my-zsh.sh
 
-export ZPLUG_HOME=$(brew --prefix)/opt/zplug
+export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
-
-zplug "mafredri/zsh-async", from:"github", use:"async.zsh"
-zplug "sindresorhus/pure", from:"github", use:"pure.zsh", as:"theme"
-zplug "zdharma/fast-syntax-highlighting", from:"github", as:"plugin", defer:2
+zplug "mafredri/zsh-async", from:github
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+zplug "zdharma/fast-syntax-highlighting", as:plugin, defer:2
+zplug "zsh-users/zsh-autosuggestions", as:plugin, defer:2
+zplug "plugins/git",   from:oh-my-zsh
+zplug load
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -95,35 +97,4 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
 alias vim="nvim"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. /opt/homebrew/etc/profile.d/z.sh
