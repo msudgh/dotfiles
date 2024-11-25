@@ -1,0 +1,7 @@
+[
+  {
+    "key": "cmd+k shift+r",
+    "command": "references-view.findReferences",
+    "when": "editorHasReferenceProvider"
+  }
+]
